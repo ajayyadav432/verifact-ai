@@ -2,14 +2,14 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt .
+# Install dependencies (build context is repo root, so path must include backend/)
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy app code
-COPY . .
+# Copy backend source code
+COPY backend/ .
 
-# Expose port (Railway sets $PORT dynamically)
+# Expose port (Railway injects $PORT at runtime)
 ENV PORT=8000
 EXPOSE 8000
 

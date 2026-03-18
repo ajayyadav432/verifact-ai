@@ -3,7 +3,7 @@
  * Handles UI state transitions, text extraction, and API communication.
  */
 
-const API_URL = "http://localhost:8000/api/v1/analyze";
+const API_URL = "https://easygoing-communication-production.up.railway.app/api/v1/analyze";
 
 // ── DOM Refs ────────────────────────────────────────────────────────────────
 const states = {

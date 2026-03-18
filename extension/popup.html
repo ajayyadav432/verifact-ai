@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VeriFact AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+
+  <!-- ── Header ─────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🛡️</span>
+      <div>
+        <span class="logo-title">VeriFact</span>
+        <span class="logo-ai"> AI</span>
+        <p class="logo-sub">Fake News Detector</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Idle State (default) ────────────────────────────────── -->
+  <div id="idle-state" class="state-view">
+    <p class="hint">
+      Highlight text on the page — or click below to analyze the full page.
+    </p>
+    <button id="analyze-btn" class="btn-primary" aria-label="Analyze page text">
+      <span class="btn-icon">🔍</span> Analyze Page Text
+    </button>
+  </div>
+
+  <!-- ── Loading State ───────────────────────────────────────── -->
+  <div id="loading-state" class="state-view hidden">
+    <div class="spinner" aria-label="Analyzing…"></div>
+    <p class="loading-text">Analyzing credibility<span class="dots">...</span></p>
+  </div>
+
+  <!-- ── Error State ─────────────────────────────────────────── -->
+  <div id="error-state" class="state-view hidden">
+    <div class="error-icon">⚠️</div>
+    <p id="error-message" class="error-text">Could not connect to the backend.</p>
+    <button id="retry-btn" class="btn-secondary">Retry</button>
+  </div>
+
+  <!-- ── Result State ────────────────────────────────────────── -->
+  <div id="result-state" class="state-view hidden">
+
+    <!-- Score Ring -->
+    <div class="score-container">
+      <svg class="score-ring" viewBox="0 0 120 120" aria-hidden="true">
+        <circle class="ring-bg" cx="60" cy="60" r="52" />
+        <circle id="ring-progress" class="ring-progress" cx="60" cy="60" r="52" />
+      </svg>
+      <div class="score-inner">
+        <span id="score-value" class="score-number">--</span>
+        <span class="score-label">/ 100</span>
+      </div>
+    </div>
+
+    <!-- Risk Badge -->
+    <div id="risk-badge" class="risk-badge" aria-live="polite">--</div>
+    <p class="risk-caption">Credibility Risk Level</p>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- Flags -->
+    <div class="flags-section">
+      <h3 class="flags-title">📋 Analysis Details</h3>
+      <ul id="flags-list" class="flags-list" aria-label="Detected credibility flags">
+        <!-- Flags injected by popup.js -->
+      </ul>
+    </div>
+
+    <!-- Source label -->
+    <p id="source-label" class="source-label"></p>
+
+    <!-- Reset -->
+    <button id="reset-btn" class="btn-secondary reset-btn">Analyze Again</button>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

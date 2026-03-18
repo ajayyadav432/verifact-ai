@@ -1,0 +1,240 @@
+/* ── Reset & Base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  width: 340px;
+  background: #0d0f14;
+  color: #e2e8f0;
+  min-height: 200px;
+  overflow-x: hidden;
+}
+
+/* ── Header ────────────────────────────────────────────────────── */
+.header {
+  background: linear-gradient(135deg, #1a1f2e 0%, #12151f 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 16px;
+}
+
+.logo { display: flex; align-items: center; gap: 10px; }
+
+.logo-icon {
+  font-size: 26px;
+  filter: drop-shadow(0 0 8px rgba(99, 179, 237, 0.5));
+}
+
+.logo-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+.logo-ai {
+  font-size: 18px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #63b3ed, #9f7aea);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.logo-sub {
+  font-size: 10px;
+  color: #718096;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+
+/* ── State Views ───────────────────────────────────────────────── */
+.state-view {
+  padding: 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: fadeIn 0.25s ease;
+}
+.state-view.hidden { display: none; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Idle State ────────────────────────────────────────────────── */
+.hint {
+  font-size: 12.5px;
+  color: #718096;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+.btn-primary {
+  width: 100%;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4299e1 0%, #805ad5 100%);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px rgba(66, 153, 225, 0.35);
+}
+.btn-primary:hover  { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(66,153,225,0.45); }
+.btn-primary:active { transform: translateY(0); opacity: 0.85; }
+.btn-icon { font-size: 15px; }
+
+.btn-secondary {
+  padding: 9px 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  color: #a0aec0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.10); color: #e2e8f0; }
+
+/* ── Loading State ─────────────────────────────────────────────── */
+.spinner {
+  width: 44px; height: 44px;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: #63b3ed;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-text {
+  font-size: 13px;
+  color: #718096;
+}
+.dots { animation: blink 1.4s infinite; }
+@keyframes blink {
+  0%,100% { opacity:1; } 50% { opacity:0; }
+}
+
+/* ── Error State ───────────────────────────────────────────────── */
+.error-icon { font-size: 36px; }
+.error-text { font-size: 13px; color: #fc8181; text-align: center; }
+
+/* ── Result State — Score Ring ─────────────────────────────────── */
+.score-container {
+  position: relative;
+  width: 120px; height: 120px;
+  margin: 6px auto 0;
+}
+
+.score-ring { width: 120px; height: 120px; transform: rotate(-90deg); }
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(255,255,255,0.07);
+  stroke-width: 10;
+}
+.ring-progress {
+  fill: none;
+  stroke: #48bb78;          /* default green; changed by JS */
+  stroke-width: 10;
+  stroke-linecap: round;
+  stroke-dasharray: 326.726; /* 2π × 52 */
+  stroke-dashoffset: 326.726;/* starts empty; JS animates */
+  transition: stroke-dashoffset 0.9s cubic-bezier(.4,0,.2,1), stroke 0.4s ease;
+}
+
+.score-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.score-number {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+}
+.score-label {
+  font-size: 10px;
+  color: #718096;
+  margin-top: 2px;
+}
+
+/* ── Risk Badge ────────────────────────────────────────────────── */
+.risk-badge {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.risk-badge.low    { background: rgba(72,187,120,0.15); border-color: #48bb78; color: #68d391; }
+.risk-badge.medium { background: rgba(237,137,54,0.15); border-color: #ed8936; color: #fbd38d; }
+.risk-badge.high   { background: rgba(245,101,101,0.15); border-color: #f56565; color: #fc8181; }
+
+.risk-caption {
+  font-size: 11px;
+  color: #4a5568;
+  margin-top: -8px;
+}
+
+/* ── Divider ───────────────────────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+}
+
+/* ── Flags Section ─────────────────────────────────────────────── */
+.flags-section { width: 100%; }
+.flags-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: #a0aec0;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+.flags-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.flags-list li {
+  font-size: 12px;
+  color: #cbd5e0;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-left: 3px solid #4299e1;
+  border-radius: 6px;
+  padding: 8px 10px;
+  line-height: 1.45;
+}
+.flags-list li.ok { border-left-color: #48bb78; color: #9ae6b4; }
+
+/* ── Source Label ──────────────────────────────────────────────── */
+.source-label {
+  font-size: 10.5px;
+  color: #4a5568;
+  text-align: center;
+}
+
+/* ── Reset Button ──────────────────────────────────────────────── */
+.reset-btn { margin-top: 4px; }

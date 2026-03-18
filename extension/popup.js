@@ -108,9 +108,9 @@ async function analyzeText(text, source) {
 
   } catch (err) {
     showState("error");
-    if (err.message.includes("Failed to fetch") || err.message.includes("NetworkError")) {
+    if (err.message.includes("Failed to fetch") || err.message.includes("NetworkError") || err.message.includes("502")) {
       errorMsg.textContent =
-        "⚡ Cannot reach backend. Make sure the FastAPI server is running on http://localhost:8000";
+        "⚡ Cannot reach the VeriFact AI backend. The server may be starting up — please try again in a moment.";
     } else {
       errorMsg.textContent = `Error: ${err.message}`;
     }
